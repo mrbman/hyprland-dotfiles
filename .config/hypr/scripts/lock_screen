@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+swaylock -f \
+    --effect-blur 16x5 --screenshots \
+    --font "SF Pro" \
+    --clock --indicator --timestr "%-H:%M:%S" --datestr "%D" \
+    --indicator-radius 160 --indicator-thickness 6 \
+    --line-color "#00000000" --line-clear-color "#00000000" --line-ver-color "#00000000" --line-caps-lock-color "#00000000" --line-wrong-color "#00000000" \
+    --inside-color "#00000090" --inside-clear-color "#00000090" --inside-ver-color "#00000090" --inside-wrong-color "#00000090" \
+    --ring-color "#00000000" --ring-clear-color "#00000000" --ring-ver-color "#a083e6" --ring-wrong-color "#dd2244" \
+    --text-color "#ffffff" --text-clear-color "#ffffff" --text-ver-color "#ffffff" --text-wrong-color "#ffffff" \
+    --key-hl-color "#a083e6" --bs-hl-color "#a083e6" \
+    --separator-color "#00000000"

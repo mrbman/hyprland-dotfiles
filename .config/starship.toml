@@ -1,0 +1,29 @@
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+format = """ (bold green)$directory$sudo$package[](bold blue) """
+
+[character]
+success_symbol = "(bold green)$directory$sudo$package [](bold blue)"
+error_symbol = " [X](bold red)"
+
+[directory]
+truncation_length = 1
+truncate_to_repo = true
+style = " purple"
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+[git_branch]
+symbol = ""
+style = "bold white"
+format = '[\($symbol$branch\)]($style) '
+
+[git_status]
+# I don't care about untracked files or that there's a stash present.
+untracked = ""
+format = '([\[$conflicted$deleted$renamed$modified$staged$behind\]]($style) )'
+modified = '*'
+
+[status]
+disabled = false
+format = '[\[$status - $common_meaning\]](green)'

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+kill $(hyprctl activewindow | rg "pid: .+" | cut -d\  -f2)

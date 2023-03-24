@@ -1,0 +1,287 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 32, // Waybar height (to be removed for auto height)
+    "spacing": 0, // Gaps between modules (4px)
+    "width": 3410,
+    "margin-top": 6,
+    "margin-bottom": -12,
+
+    // Choose the order of the modules
+    "modules-left": [
+	"custom/leftside",
+	"custom/launcher",
+	"wlr/workspaces",
+	"custom/middle",
+	"custom/kitty",
+	"custom/firefox",
+	"custom/file",
+	"custom/code",
+	"custom/spot",
+	"custom/middle",
+        "cpu", 
+        "memory", 
+        "temperature",
+	"custom/rightside",
+        ],
+    "modules-center": [
+	"custom/leftside",
+	"clock",
+	"custom/weather",
+	"custom/spotify",
+	"custom/rightside",
+        ],
+    "modules-right": [
+	"custom/leftside",
+	"idle_inhibitor",
+	"custom/screenshot",
+	"custom/wallpaper",
+	"custom/keybindings",
+	"custom/updates",
+	"network",
+	"pulseaudio",
+	"gamemode",
+	"tray",
+	"custom/power",
+	"custom/rightside",
+	],
+
+    // Modules configuration
+    "wlr/workspaces": {
+        "all-outputs": true,
+        "sort-by-number": true,
+        "on-click": "activate",
+        "sort-by-number": true,
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "format": "{name}: {icon}  ",
+        "format-icons": {
+            "urgent": "",
+            "active": "",
+            "default": "",
+        },
+    },
+
+    "custom/launcher":{
+        "format": " ",
+        "on-click": "$HOME/.config/waybar/scripts/menu",
+        "on-click-right": "killall wofi"
+    },
+
+    "custom/leftside":{
+        "format":" ",
+    },
+    "custom/rightside":{
+        "format":" ",
+    },
+    "custom/middle":{
+        "format":" ",
+    },
+    "custom/kitty":{
+        "format":" ",
+        "on-click": "kitty 2> /dev/null"
+    },
+    "custom/firefox":{
+        "format":" ",
+        "on-click": "firefox 2> /dev/null"
+    },
+    "custom/file":{
+        "format":" ",
+        "on-click": "thunar 2> /dev/null"
+    },
+    "custom/code":{
+        "format":" ",
+        "on-click": "vscodium 2> /dev/null"
+    },
+    "custom/spot":{
+        "format":" ",
+        "on-click": "$HOME/bin/spot-play.sh 2> /dev/null"
+    },
+
+    "hyprland/window": {
+        "format": "➡ {}",
+        "separate-outputs": true
+    },
+
+    "keyboard-state": {
+        "numlock": true,
+        "capslock": true,
+        "format": "{name} {icon}",
+        "format-icons": {
+            "locked": "",
+            "unlocked": ""
+        }
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": "",
+        }
+    },
+
+    "tray": {
+        "icon-size": 15,
+        "spacing": 8,
+    },
+
+    "clock": {
+        // "timezone": "America/New_York",
+        "interval": 1,
+        "format": "{:  %a %d %b | %I:%M %p}",
+        "tooltip": true,
+        "tooltip-format": "<big>{:%B %Y \t}</big>\n<tt>{calendar}</tt>",
+    },
+
+    "cpu": {
+	"interval": 15,
+        "format": " {usage}%",
+        "tooltip": false
+    },
+
+    "memory": {
+	"interval": 30,
+        "format": " {}%",
+        "tooltip": false
+    },
+
+    "temperature": {
+        "thermal-zone": 1,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 90,
+        // "format-critical": "{temperatureC}°C {icon}",
+        "format": " {temperatureC}°C",
+        // "format-icons": ["", "", ""]
+    },
+
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{percent}%  {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 15,
+            "critical": 5
+        },
+        "format": "{capacity}%  {icon}  ",
+        "format-charging": "{capacity}%   ",
+        "format-plugged": "{capacity}%   ",
+        "format-alt": "{time}  {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "{signalStrength}%  ",
+        "format-ethernet": " {ipaddr}/{cidr}",
+        "tooltip-format": "{ifname} on {essid} via {gwaddr} 󰈀",
+        "format-linked": "No IP  󰈀",
+        "format-disconnected": "Disconnected  ⚠",
+        "format-alt": " {bandwidthUpBits} |  {bandwidthDownBits}",
+    },
+
+    "pulseaudio": {
+        "scroll-step": 5, // %, can be a float
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} {volume}% {format_source}",
+        "format-bluetooth-muted": "  {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": " ",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    "custom/power":{
+        "format": " ",
+        "on-click": "$HOME/.config/waybar/scripts/powermenu",
+
+    },
+    "custom/updates":{
+        "format": "{} Update(s)",
+        "exec": "checkupdates | wc -l",
+        "exec-if": "[[ $(checkupdates | wc -l) != 0 ]]",
+        "interval": 15,
+        "on-click": "alacritty -e paru -Syu && notify-send 'The system has been updated' "
+    },
+    "custom/wallpaper":{
+        "format":" ",
+        "on-click": "bash $HOME/.config/hypr/scripts/wallpaper.sh 2> /dev/null"
+    },
+    "custom/screenshot":{
+        "format":" ",
+        "on-click": "bash $HOME/.config/hypr/scripts/screenshot.sh 2> /dev/null"
+    },
+    "custom/spotify": {
+        "interval": 1,
+        "return-type": "json",
+        "exec": "~/.config/waybar/scripts/spotify.sh",
+        "exec-if": "pgrep spotify",
+        "escape": true
+    },
+    "custom/weather": {
+        "format": "{}",
+        "format-alt": "{alt}: {}",
+        "format-alt-click": "click-right",
+        "interval": 1800,
+        "return-type": "json",
+        "exec": "~/.config/waybar/scripts/weather-get.sh",
+        "exec-if": "ping wttr.in -c1"
+    },
+   "custom/weather1" : {
+        "tooltip" : true,
+        "format" : "{}",
+        "interval" : 30,
+        "exec" : "python3 ~/.config/waybar/scripts/weather1.py",
+        "return-type" : "json"
+    },
+    "custom/media": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    },
+
+    "gamemode": {
+        "format": "{glyph}",
+        "format-alt": "{glyph} {count}",
+        "glyph": " ",
+        "hide-not-running": true,
+        "use-icon": true,
+        "icon-name": "input-gaming-symbolic",
+        "icon-spacing": 6,
+        "icon-size": 20,
+        "tooltip": true,
+        "tooltip-format": "Games running: {count}"
+    },
+
+    "custom/keybindings": {
+        "format":" ",
+        "tooltip": false,
+        "on-click": "$HOME/.config/waybar/scripts/keyhint"
+    },
+
+    "custom/tray": {
+        "format": "hello"
+    }
+}

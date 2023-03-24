@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+
+## Wofi Powermenu
+
+## Files
+CONFIG="$HOME/.config/wofi/config"
+STYLE="$HOME/.config/wofi/style.css"
+COLORS="$HOME/.config/wofi/colors"
+
+## Wofi Command
+wofi_command="wofi --show dmenu \
+			--conf ${CONFIG} --style ${STYLE} --color ${COLORS} \
+			--width=340 --height=288 \
+			--cache-file=/dev/null \
+			--hide-scroll --no-actions \
+			--define=matching=fuzzy"
+
+uptime=$(uptime -p | sed -e 's/up //g')
+
+## Entries
+shutdown="襤  Shutdown"
+reboot="菱  Restart"
+lock="  Lock"
+suspend="鈴  Sleep"
+logout="  Logout"
+
+# Ask for confirmation
+cdialog () {
+	yad --title='Confirm?' --borders=15 --center --fixed --undecorated --button=Yes:0 --button=No:1 --text="Are you sure?" --text-align=center
+}
+
+# Variable passed to rofi
+open_menu () {
+	options="$lock\n$suspend\n$logout\n$reboot\n$shutdown"
+
+	chosen="$(echo -e "$options" | $wofi_command --prompt "UP - $uptime")"
+	case $chosen in
+		$shutdown)
+			cdialog
+			if [[ "$?" == 0 ]]; then
+				systemctl poweroff
+			else
+				exit
+			fi
+			;;
+		$reboot)
+			cdialog
+			if [[ "$?" == 0 ]]; then
+				systemctl reboot
+			else
+				exit
+			fi
+			;;
+		$lock)
+			~/.config/hypr/scripts/lockscreen
+			;;
+		$suspend)
+			cdialog
+			if [[ "$?" == 0 ]]; then
+				mpc -q pause
+				amixer set Master mute
+				~/.config/hypr/scripts/lockscreen
+				systemctl suspend
+			else
+				exit
+			fi
+			;;
+		$logout)
+			cdialog
+			if [[ "$?" == 0 ]]; then
+				kill -9 -1
+			else
+				exit
+			fi
+			;;
+	esac
+}
+
+if [[ ! `pidof wofi` ]]; then
+	open_menu
+else
+	pkill wofi
+fi
+

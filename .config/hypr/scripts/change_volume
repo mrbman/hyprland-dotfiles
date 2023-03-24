@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+delta=$1
+
+current=$(pactl get-sink-volume @DEFAULT_SINK@ | rg -o "\d+%" | head -1)
+current=${current%%%}
+
+new=$((current + delta))
+new=$((new > 100 ? 100 : new))
+
+pactl set-sink-volume @DEFAULT_SINK@ $new%
+
